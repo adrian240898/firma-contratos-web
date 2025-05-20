@@ -1,0 +1,46 @@
+{
+  "expectedBehavior": [
+    {
+      "description": "El programa debe generar una firma digital en Base64 para el texto fijo",
+      "validations": [
+        {
+          "outputContains": {
+            "field": "Texto original",
+            "value": "Este es un mensaje de prueba"
+          }
+        },
+        {
+          "outputMatches": {
+            "field": "Firma digital",
+            "pattern": "^[A-Za-z0-9+/]+={0,2}$",
+            "description": "Debe ser una cadena Base64 válida"
+          }
+        },
+        {
+          "outputFieldLength": {
+            "field": "Firma digital",
+            "minLength": 342,
+            "maxLength": 344,
+            "description": "Una firma RSA-2048 en Base64 debe tener ~343 caracteres"
+          }
+        }
+      ]
+    },
+    {
+      "description": "El programa debe ejecutarse sin lanzar excepciones",
+      "validations": [
+        {
+          "exceptionExpected": false
+        }
+      ]
+    }
+  ],
+  "executionNotes": "Estos tests validan la salida estándar (stdout) del programa sin modificarlo. Se espera que:",
+  "executionOptions": [
+    "Ejecutar el programa y capturar su salida",
+    "Buscar las líneas que comienzan con 'Texto original:' y 'Firma digital:'",
+    "Validar que el texto original es exactamente 'Este es un mensaje de prueba'",
+    "Validar que la firma cumple con el formato Base64",
+    "Verificar que no hay mensajes de error"
+  ]
+}
